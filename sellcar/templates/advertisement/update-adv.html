@@ -1,0 +1,50 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block wallpaper %}background-image: url({% static 'advertisement/images/post_1.jpg' %}){% endblock %}
+{% block content %}
+<div class="site-section bg-light" id="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+                <form action="" enctype="multipart/form-data" method="POST" class="needs-validation">
+                    {% csrf_token %}
+                    <div class="container-fluid">
+                        <div class="row g-3 mb-3 my-fields">
+                            {{form.as_p}}
+                        </div>
+                        <hr>
+                        <div rows="7" class="check-additional ml-2">
+                            {% for k, v in object.add_params.items %}
+                            <label data-testid="label">
+                                <div class="css-32g0np">
+                                    <input data-testid="checkbox" value="{{k}}" name="additional"
+                                           id="parameters.car_option:electric_mirrors" type="checkbox" {% if v == 1 %}
+                                           checked="true" {% endif %}>
+                                    {% for x, y in adds.items %}
+                                    {% if k == x %}
+                                    <p class="css-5osgc0-Text eu5v0x0">{{y}}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </label>
+                            {% endfor %}
+
+                        </div>
+                        <!-- <button type="submit" class="btn btn-primary mt-3">Submit</button> -->
+                    </div>
+                    <hr>
+                    <div class="css-1g0t7ax">
+                        {{ img_form.as_p }}
+                    </div>
+                    <hr>
+                    <button class="btn btn-info mt-1 mb-1" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

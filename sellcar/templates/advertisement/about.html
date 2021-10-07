@@ -1,0 +1,42 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock %}
+{% block wallpaper %}background-image: url({% static 'advertisement/images/about.jpg' %}){% endblock %}
+
+{% block content %}
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 mb-lg-0 order-lg-2">
+                <img src="{% static 'advertisement/images/aboutme.jpg' %}" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-lg-4 mr-auto">
+                <h2>Car Company</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit suscipit, repudiandae similique
+                    accusantium eius nulla quam laudantium sequi.</p>
+                <p>Debitis voluptates corporis saepe molestias tenetur ab quae, quo earum commodi, laborum dolore, fuga
+                    aliquid delectus cum ipsa?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <img src="{% static 'advertisement/images/what.png' %}" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-lg-4 ml-auto">
+                <h2>Our History</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit suscipit, repudiandae similique
+                    accusantium eius nulla quam laudantium sequi.</p>
+                <p>Debitis voluptates corporis saepe molestias tenetur ab quae, quo earum commodi, laborum dolore, fuga
+                    aliquid delectus cum ipsa?</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

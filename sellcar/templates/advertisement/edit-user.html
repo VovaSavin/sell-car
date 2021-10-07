@@ -1,0 +1,28 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block wallpaper %}background-image: url({% static 'advertisement/images/hero_1.jpg' %}){% endblock %}
+
+{% block content %}
+<div class="site-section bg-light">
+    <div class="cont-login container">
+        <h1>
+            Редактирование {{request.user}}:
+        </h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <img style="font-family: Comic Sans MS;" src="" height="200" alt="Предварительный просмотр..."
+                class="rounded-circle">
+            <p></p>
+            <input type="submit" class="btn btn-info" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block right %}
+{% endblock %}

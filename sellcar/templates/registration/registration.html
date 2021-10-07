@@ -1,0 +1,32 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block wallpaper %}background-image: url({% static 'advertisement/images/hero_1.jpg' %}){% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<p class="errorlist">
+    Логин и пароль не соответствуют
+</p>
+{% endif %}
+<div class="site-section bg-light">
+    <div class="cont-login container">
+        <h1 class="mb-3">
+            Регистрация
+        </h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <img style="font-family: Comic Sans MS;" src="" height="200" alt="Предварительный просмотр...">
+            <p></p>
+            <input type="submit" class="w-100 btn btn-info" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block right %}
+{% endblock %}

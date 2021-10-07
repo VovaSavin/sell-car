@@ -1,0 +1,41 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% block title %}
+Авторизация
+{% endblock %}
+
+{% block wallpaper %}background-image: url({% static 'advertisement/images/hero_3.jpg' %}){% endblock %}
+
+{% block content %}
+<div class="site-section bg-light">
+    {% if form.errors %}
+    <p class="errorlist">
+        Логин и пароль не соответствуют
+    </p>
+    {% endif %}
+    {% if next %}
+    {% endif %}
+
+    <div class="cont-login container">
+        <div class="row">
+            <form method="post" action="{% url 'login' %}" class="login-form">
+                {% csrf_token %}
+                <table>
+                    <tr class="tr-fl">
+                        <td><b>{{ form.username.label_tag }}</b></td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr class="tr-fl">
+                        <td><b>{{ form.password.label_tag }}</b></td>
+                        <td>{{ form.password }}</td>
+                    </tr>
+                </table>
+                <input type="submit" value="Войти" class="w-100 btn btn-primary mt-2 mb-2" />
+                <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+        </div>
+        <a class="btn btn-outline-info" href="{% url 'password_reset' %}">Восстановить пароль</a>
+    </div>
+</div>
+
+{% endblock %}

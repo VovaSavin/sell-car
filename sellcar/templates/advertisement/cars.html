@@ -1,0 +1,159 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block wallpaper %}background-image: url({% static 'advertisement/images/hero_1.jpg' %}){% endblock %}
+
+{% block filters %}
+<!--<p style="text-align: center;">{{result_count}}</p>-->
+<div class="container-fluid mt-3">
+    <form action="" method="GET" class="search-form">
+        <div class="inner-form-container">
+            <!-- <input type="search" name="s" value="" required="" class="input-search"
+                placeholder=" Ведите название заголовка обьявления..."> -->
+            {{ filter.form.header }}
+            <button class="btn-sm btn-warning ml-2" type="submit">Поиск</button>
+        </div>
+    </form>
+</div>
+<div class="filter mt-3">Фильтры:</div>
+<form action="" method="GET">
+    <!-- <div> -->
+    <div class="container-fluid">
+        <div class="row g-3 mb-3 wrapper">
+            <div class="col-md-2 filter-price">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Цена:</label>
+                <div class="fields-odometr">
+                    {{ filter.form.price__gte }}
+                    {{ filter.form.price__lte }}
+                </div>
+            </div>
+            <div class="col-md-2 filter-price">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Пробег:</label>
+                <div class="fields-odometr">
+                    {{ filter.form.odometr__gte }}
+                    {{ filter.form.odometr__lte }}
+                </div>
+            </div>
+            <div class="col-md-2 filter-price">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Год выпуска:</label>
+                <div class="fields-odometr">
+                    {{ filter.form.year__gte }}
+                    {{ filter.form.year__lte }}
+                </div>
+            </div>
+            <div class="col-md-2 filter-check">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Тип кузова:</label>
+                <div class="fields-filter-check">
+                    <select class="form-select input-check" id="type-auto" name="typeauto">
+                        {% for x in filter.form.typeauto %}
+                        {{x}}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 filter-check">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Трансмиссия:</label>
+                <div class="fields-filter-check">
+                    <select class="form-select input-check" id="transmission" name="transmission">
+                        {% for x in filter.form.transmission %}
+                        {{x}}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 filter-check">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Вид топлива:</label>
+                <div class="fields-filter-check">
+                    <!-- <input type="text" class="input-type-car" placeholder="От"> -->
+                    <select class="form-select input-check" id="fuel" name="fuel">
+                        {% for x in filter.form.fuel %}
+                        {{x}}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 filter-brand mt-3">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Марка:</label>
+                <div class="fields-brand">
+                    {{ filter.form.brand }}
+                </div>
+            </div>
+            <div class="col-md-2 filter-brand mt-3">
+                <label for="customRange3" class="form-label" style="margin: 0 5px;">Модель:</label>
+                <div class="fields-brand">
+                    {{ filter.form.model_car }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- {{ filter.form.add_params }} -->
+    <hr>
+    <div class="filter-add">Дополнительные параметры:</div>
+    <div rows="7" class="check-additional ml-3">
+        {% for k, v in additions.items %}
+        <label data-testid="label" class="css-1v8umq8">
+            <div class="css-32g0np">
+                <input data-testid="checkbox" name="add_params" value="{{k}}" id="parameters.car_option:heated-seats"
+                       type="checkbox">
+                <p class="css-5osgc0-Text eu5v0x0">{{v}}</p>
+            </div>
+        </label>
+        {% endfor %}
+    </div>
+    <button class="mt-4 ml-2 btn btn-info" type="submit">Найти</button>
+</form>
+{% endblock %}
+
+{% block content %}
+<div class="site-section bg-light">
+    <div class="container">
+        <div class="row">
+            {% if filters %}
+            {% for obj in filters %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="item-1">
+                    {% if obj.imagecars_set %}
+                    {% for im in obj.imagecars_set.all|slice:":1" %}
+                    {% if im.image %}
+                    <a href="#" style="height: 220px;"><img src="{{ im.image.url }}" alt="Image"
+                                                            class="img-fluid place-img-adv" width="100%" height="100%"></a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    <div class="item-1-contents">
+                        <div class="text-center head-advertisement-detail">
+                            <h3><a href="{{obj.get_absolute_url}}">{{ obj.header }}</a></h3>
+                            <div class="rent-price">{{ obj.price }}$</div>
+                        </div>
+                        <ul class="specs">
+                            <li class="small lh-125 desc-adv">
+                                <p>{{ obj.description|truncatechars:100 }}</p>
+                            </li>
+                            <li>
+                                <span class="small lh-125">{{ obj.date }}</span>
+                            </li>
+                            <li>
+                                <span class="small lh-125">{{ obj.author.username }}</span>
+                            </li>
+                        </ul>
+                        <div class="d-flex action">
+                            <a href="{{obj.get_absolute_url}}" class="btn btn-primary">Перейти к обьявлению</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="col-12">
+                {% include 'include/paginate.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block right %}
+{% endblock %}

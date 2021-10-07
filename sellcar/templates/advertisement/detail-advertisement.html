@@ -1,0 +1,127 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% load advertisement_tag %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block wallpaper %}background-image: url({% static 'advertisement/images/hero_2.jpg' %}){% endblock %}
+{% block content %}
+<div class="advertisement-car">
+    <div class="container" style="border-right: 1px solid black;">
+        <div class="col-lg-12 col-md-5 mb-4">
+            <div class="item-1 mt-5">
+                {% if advertisement.imagecars_set %}
+                {% for adv in advertisement.imagecars_set.all %}
+                <img src="{{ adv.image.url }}" alt="Image" class="img-fluid big-photo" width="80%">
+                <div class="secondary-photos">
+
+                    <div class="secondary-photo img-fluid mt-2">
+                        <img src="{{ adv.image2.url }}" alt="Image" class="img-fluid small-photo ml-1" width="100%">
+                        <img src="{{ adv.image3.url }}" alt="Image" class="img-fluid small-photo ml-1" width="100%">
+                        <img src="{{ adv.image4.url }}" alt="Image" class="img-fluid small-photo ml-1" width="100%">
+                        <img src="{{ adv.image5.url }}" alt="Image" class="img-fluid small-photo ml-1" width="100%">
+                        <img src="{{ adv.image6.url }}" alt="Image" class="img-fluid small-photo ml-1" width="100%">
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="item-1-contents">
+                    <div class="text-center head-advertisement-detail">
+                        <h3>{{advertisement.header}}</h3>
+                        <div class="rent-price">{{advertisement.price}}$</div>
+                    </div>
+                    <div class="addiction-param">
+                        {% for k, v in advertisement.add_params.items %}
+                        {% if v == 1 %}
+                        {% for x, y in additions.items %}
+                        {% if x == k %}
+                        <div class="css-detail-add">
+                            <p class="spec-add-params">{{y}}</p>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <ul class="specs">
+                        <li class="list-perfomance">Марка: <strong>{{advertisement.brand}}</strong></li>
+                        <li class="list-perfomance">Модель: <strong>{{advertisement.model_car}}</strong></li>
+                        <li class="list-perfomance">Кузов: <strong>{{advertisement.typeauto.body}}</strong></li>
+                        <li class="list-perfomance">Объём двигателя:
+                            <strong>{{advertisement.engine_volume}}</strong>
+                        </li>
+                        <li class="list-perfomance">
+                            Вид топлива: <strong>{{advertisement.get_fuel_display}}</strong>
+                        </li>
+                        <li class="list-perfomance">
+                            Трансмиссия:
+                            <strong>{{advertisement.get_transmission_display}}</strong>
+                        </li>
+                        <li class="list-perfomance">Пробег: <strong>{{advertisement.odometr}} km</strong></li>
+                        <li class="list-perfomance">Цвет: <strong>{{advertisement.color}}</strong></li>
+                        <li class="list-perfomance">Год выпуска: <strong>{{advertisement.year}}</strong></li>
+                        <li class="list-perfomance">Город регистрации: <strong>{{advertisement.city}}</strong>
+                        </li>
+                        <li class="small lh-125 mt-3">
+                            <h3><b>Описание</b></h3>
+                            <p>{{advertisement.description}}</p>
+                        </li>
+                        <li>
+                            <span class="small lh-125">Опубликовано: {{advertisement.date}}</span>
+                        </li>
+                    </ul>
+                    {% if request.user == advertisement.author %}
+                    <a href="{% url 'update-advertisement' advertisement.id %}" class="nav-link">
+                        <b>Редактировать обьявление</b>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container info-about-user">
+        <div data-cy="seller_card" class="css-1wws9er">
+            <p class="lead"><b>Пользователь:</b></p>
+            <section class="css-ecq9m8">
+                <div class="css-xsk3xm">
+                    <img src="{{advertisement.author.photo.url}}" class="rounded-circle" width="120" height="120">
+                    <h2>{{advertisement.author}}</h2>
+                    <div style="color: darkgreen;">Зарегистрирован {{ advertisement.author.date_joined }}</div>
+                    <div>
+                        <div class="small lh-125">Был на сайте {{ advertisement.author.last_login }}</div>
+                    </div>
+                </div>
+            </section>
+            <p></p>
+            <div class="css-1eowuel">
+                <span class="small lh-125">Номер телефона:</span>
+                <p style="color: rgb(49, 47, 49);">+{{advertisement.author.phone}}</p>
+                <span class="small lh-125">Email:</span>
+                <a href="#">
+                    <p>{{advertisement.author.email}}</p>
+                </a>
+                {% if request.user == advertisement.author %}
+                <a href="{% url 'edit-pofile' user.username %}">
+                    <p>Редактировать профиль</p>
+                </a>
+                {% endif %}
+            </div>
+            <span class="css-1ohf0ui">
+                <span>
+                    {% if request.user == advertisement.author %}
+                    <a href="{% url 'my-advertisement' %}">
+                        Мои объявления
+                    </a>
+                    {% else %}
+                    <a href="{% url 'his-advertisement' advertisement.author.username advertisement.author.id %}">Все
+                        объявления автора
+                    </a>
+                    {% endif %}
+                </span>
+                <i class="css-da78i"></i>
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock %}

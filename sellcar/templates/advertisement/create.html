@@ -1,0 +1,149 @@
+{% extends "advertisement/index.html" %}
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block wallpaper %}background-image: url({% static 'advertisement/images/post_1.jpg' %}){% endblock %}
+{% block content %}
+<div class="site-section bg-light" id="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+                <form action="{% url 'create-advertisement' %}" enctype="multipart/form-data" method="POST"
+                    class="needs-validation">
+                    {% csrf_token %}
+                    <div class="container-fluid">
+                        <div class="row g-3 mb-3 my-fields">
+                            {{form.as_p}}
+                        </div>
+                        <hr>
+                        <div rows="7" class="check-additional ml-2">
+                            <label data-testid="label">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Electricalpackage" id="parameters.car_option:electric_mirrors"
+                                        type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Електропакет</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Electricwindows" id="parameters.car_option:electric_windows"
+                                        type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Електростеклоподъёмники</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Conditioner" id="parameters.car_option:air_con" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Кондиционер</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Safesystem" id="parameters.car_option:security" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Охранная система</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Parktronic" id="parameters.car_option:park_assist" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Парктроник</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Onboardcomputer" id="parameters.car_option:on-board-computer"
+                                        type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Бортовой компьютер</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Sensorlight" id="parameters.car_option:light-sensor" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Датчик света</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Startbutton" id="parameters.car_option:start-button" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Запуск с кнопки</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Climatcontrol" id="parameters.car_option:climate-control"
+                                        type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Климат контроль</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Leatherinterior" id="parameters.car_option:leather-interior"
+                                        type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Кожаный салон</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Cruisecontrol" id="parameters.car_option:cruise-control" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Круиз контроль</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional" value="Luke"
+                                        id="parameters.car_option:luke" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Люк</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Multifunc" id="parameters.car_option:multi-wheel" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Мультируль</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="headlightwasher" id="parameters.car_option:headlight-washer"
+                                        type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Омыватель фар</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="heatedmirrors" id="parameters.car_option:heated-mirrors" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Подогрев зеркал</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="heatedsteeringwheel" id="parameters.car_option:heated-steering-wheel"
+                                        type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Подогрев руля</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Sensorrain" id="parameters.car_option:rain-sensor" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Сенсор дождя</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Powerstiring" id="parameters.car_option:power-steering" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Усилитель руля</p>
+                                </div>
+                            </label><label data-testid="label" class="css-1v8umq8">
+                                <div class="css-32g0np"><input data-testid="checkbox" name="additional"
+                                        value="Heatedseats" id="parameters.car_option:heated-seats" type="checkbox">
+                                    <p class="css-5osgc0-Text eu5v0x0">Подогрев сидений</p>
+                                </div>
+                            </label>
+                        </div>
+                        <!-- <button type="submit" class="btn btn-primary mt-3">Submit</button> -->
+                    </div>
+                    <hr>
+                    <div class="css-1g0t7ax">
+                        {% for img in img_form %}
+                        <div class="css-1t8lkuw">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32"
+                                data-testid="add-icon">
+                                <path fill="#7F9799" fill-rule="evenodd"
+                                    d="M21.43 4l1.325 4h5.67l1.325 1.333v17.334L28.425 28H4.575L3.25 26.667V9.333L4.575 8h5.67l1.325-4h9.86zm-1.91 2.667h-6.04l-1.325 4H5.9v14.666h21.2V10.667h-6.255l-1.325-4zm-3.02 4c3.653 0 6.625 2.99 6.625 6.666S20.153 24 16.5 24s-6.625-2.99-6.625-6.667c0-3.676 2.972-6.666 6.625-6.666zm0 2.666c-2.192 0-3.975 1.794-3.975 4s1.783 4 3.975 4 3.975-1.794 3.975-4-1.783-4-3.975-4z">
+                                </path>
+                            </svg>
+                            {{ img }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <button class="btn btn-info mt-1 mb-1" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% if response.paginator %}
+<div style="display: flex; width: 40%; margin-bottom: 5px;">
+    {% if response.has_previous %}
+    {% if response.number|add:'-3' > 1 %}
+    <a class="p-3" href="?page=1">
+        В начало
+    </a>
+    {% endif %}
+    {% if response.number|add:'-3' >= 3 %}
+    <a class="p-3" href="?page={{ response.previous_page_number|add:'-3' }}">...</a>
+    {% endif %}
+    {% endif %}
+    {% if response.paginator.page_range|length > 1 %}
+    {% for x in response.paginator.page_range %}
+    {% if response.number == x %}
+    <span class="p-3">{{x}}</span>
+    {% elif x > response.number|add:'-4' and x < response.number|add:'4' %}
+    <a class="p-3" href="?page={{x}}">
+        {{x}}
+    </a>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% if response.has_next %}
+    {% if response.number|add:'4' < response.paginator.num_pages %}
+    <a class="p-3" href="?page={{ response.next_page_number|add:'3' }}">...</a>
+    {% endif %}
+    {% if response.number|add:'3' < response.paginator.num_pages %}
+    <a class="p-3" href="?page={{response.paginator.num_pages}}">
+        Последняя
+    </a>
+    {% endif %}
+    {% endif %}
+</div>
+{% endif %}
