@@ -1,8 +1,10 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.base import TemplateView
 from .models import (
     MyUser,
     CarAdvertisement,
@@ -13,7 +15,9 @@ from .forms import (
     CarAdvertisementForm,
     ImageCarsForm,
     EditMyUser,
+    SendMail,
 )
+from django.core.mail import send_mail
 from .filter import CarAdvertisementFilter
 from .helper import get_adds, get_paginate
 
@@ -55,7 +59,7 @@ class ListAdv(GetBodycar, ListView):
         return CarAdvertisementFilter(
             self.request.GET,
             CarAdvertisement.objects.all()
-        ).qs
+        ).qs.order_by("-date")
 
     def get_context_data(self, **kwargs):
         context = super(ListAdv, self).get_context_data(**kwargs)
@@ -99,7 +103,7 @@ class MyAdvertisement(LoginRequiredMixin, GetBodycar, ListView):
         return CarAdvertisementFilter(
             self.request.GET,
             CarAdvertisement.objects.filter(author=self.request.user)
-        ).qs
+        ).qs.order_by("-date")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -131,7 +135,7 @@ class UserAdvertisement(GetBodycar, ListView):
             self.request.GET, CarAdvertisement.objects.filter(
                 author=self.kwargs.get("pkuser")
             )
-        ).qs
+        ).qs.order_by("-date")
 
     def get_context_data(self, **kwargs):
         context = super(UserAdvertisement, self).get_context_data(**kwargs)
@@ -235,7 +239,6 @@ class UpdateAdv(UserPassesTestMixin, Messages, UpdateView):
             username=self.request.user
         )
         add = self.request.POST.getlist("additional")
-        print(add)
         new_add = {
             "Luke": 0, "Multifunc": 0,
             "Parktronic": 0, "conditioner": 0,
@@ -251,7 +254,6 @@ class UpdateAdv(UserPassesTestMixin, Messages, UpdateView):
         for self.x in add:
             if self.x in new_add:
                 new_add[self.x] = 1
-        print(new_add)
         form.instance.add_params = new_add
         self.object = form.save()
         self.img_form_valid()
@@ -311,13 +313,20 @@ def about(request):
     return render(request, "advertisement/about.html", context)
 
 
-def support(request):
-    """
-    Прочая информация
-    :param request:
-    :return:
-    """
-    context = {
-        "title": "Попробуйте связаться"
-    }
-    return render(request, "advertisement/contact.html", context)
+class Send(Messages, LoginRequiredMixin, TemplateView, View):
+    """Отправка сообщений на саппорт"""
+    template_name = "advertisement/contact.html"
+    success_message = "Сообщение отправлено!"
+
+    def post(self, request):
+        theme = request.POST.get("problem")
+        text = request.POST.get("text_problem")
+        send_mail(
+            theme, text, "volodimirsavin56@gmail.com", [self.request.user.email]
+        )
+        return redirect(reverse_lazy("support"))
+
+    def get_context_data(self, **kwargs):
+        context = super(Send, self).get_context_data(**kwargs)
+        context["title"] = "Служба поддержки"
+        return context

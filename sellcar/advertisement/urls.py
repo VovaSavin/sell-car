@@ -29,7 +29,10 @@ urlpatterns = [
     path(
         'about', views.about, name='about'
     ),
+    # path(
+    #     'support', views.support, name='support'
+    # ),
     path(
-        'support', views.support, name='support'
+        'support', views.Send.as_view(), name='support'
     ),
 ]

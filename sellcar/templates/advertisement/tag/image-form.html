@@ -1,5 +1,0 @@
-<form action="{% url 'add-images'  %}" enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    {{ img_form }}
-    <button class="btn btn-info btn-sm mt-1 mb-1" type="submit">Send</button>
-</form>

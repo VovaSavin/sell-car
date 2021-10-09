@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('advertisement.urls')),
     path('registration/', include('registration.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('social-account/', include('social_django.urls', namespace='social')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

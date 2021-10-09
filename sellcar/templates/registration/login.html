@@ -30,11 +30,14 @@
                         <td>{{ form.password }}</td>
                     </tr>
                 </table>
-                <input type="submit" value="Войти" class="w-100 btn btn-primary mt-2 mb-2" />
-                <input type="hidden" name="next" value="{{ next }}" />
+                <input type="submit" value="Войти" class="w-100 btn btn-primary mt-2 mb-2"/>
+                <input type="hidden" name="next" value="{{ next }}"/>
             </form>
         </div>
-        <a class="btn btn-outline-info" href="{% url 'password_reset' %}">Восстановить пароль</a>
+        <a class="w-25 btn btn-outline-info" href="{% url 'social:begin' 'google-oauth2' %}">Google+</a>
+        <!--        <a class="w-25 btn btn-outline-info mt-2" href="{% url 'social:begin' 'twitter-oauth' %}">Twitter</a>-->
+        <a class="w-25 btn btn-outline-warning mt-2" href="{% url 'password_reset' %}">Восстановить пароль</a>
+
     </div>
 </div>
 

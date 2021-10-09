@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import CarAdvertisement, ImageCars, MyUser
 import time
+from snowpenguin.django.recaptcha3.fields import ReCaptchaField
 
 
 class CarAdvertisementForm(forms.ModelForm):
@@ -108,73 +109,6 @@ class CarAdvertisementForm(forms.ModelForm):
 class ImageCarsForm(forms.ModelForm):
     """Форма загрузки изображений авто"""
 
-    # image = forms.ImageField(
-    #     label="Добавить фотографию:",
-    #     required=False,
-    #     widget=forms.FileInput(
-    #         attrs={
-    #             "type": "file",
-    #             "class": "form-control-custom",
-    #             "multiple": "multiple", "onchange": "previewFile()",
-    #         }
-    #     )
-    # )
-    # image2 = forms.ImageField(
-    #     label="Добавить фотографию:",
-    #     required=False,
-    #     widget=forms.FileInput(
-    #         attrs={
-    #             "type": "file",
-    #             "class": "form-control-custom",
-    #             "multiple": "multiple", "onchange": "previewFile()",
-    #         }
-    #     )
-    # )
-    # image3 = forms.ImageField(
-    #     label="Добавить фотографию:",
-    #     required=False,
-    #     widget=forms.FileInput(
-    #         attrs={
-    #             "type": "file",
-    #             "class": "form-control-custom",
-    #             "multiple": "multiple", "onchange": "previewFile()",
-    #         }
-    #     )
-    # )
-    # image4 = forms.ImageField(
-    #     label="Добавить фотографию:",
-    #     required=False,
-    #     widget=forms.FileInput(
-    #         attrs={
-    #             "type": "file",
-    #             "class": "form-control-custom",
-    #             "multiple": "multiple", "onchange": "previewFile()",
-    #         }
-    #     )
-    # )
-    # image5 = forms.ImageField(
-    #     label="Добавить фотографию:",
-    #     required=False,
-    #     widget=forms.FileInput(
-    #         attrs={
-    #             "type": "file",
-    #             "class": "form-control-custom",
-    #             "multiple": "multiple", "onchange": "previewFile()",
-    #         }
-    #     )
-    # )
-    # image6 = forms.ImageField(
-    #     label="Добавить фотографию:",
-    #     required=False,
-    #     widget=forms.FileInput(
-    #         attrs={
-    #             "type": "file",
-    #             "class": "form-control-custom",
-    #             "multiple": "multiple", "name": "image5", "accept": "image/*", "id": "id_image5"
-    #         }
-    #     )
-    # )
-
     class Meta:
         model = ImageCars
         fields = (
@@ -243,3 +177,30 @@ class EditMyUser(forms.ModelForm):
         fields = (
             "username", "email", "city", "phone", "photo",
         )
+
+
+class SendMail(forms.Form):
+    """Форма саппорт"""
+
+    problem = forms.CharField(
+        label="Тема",
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control col-sm-12 mb-2", "placeholder": "Проблема..."
+            }
+        )
+    )
+    text_problem = forms.CharField(
+        label="Описание проблемы",
+        required=True,
+        widget=forms.Textarea(
+            attrs={"class": "form-control",
+                   "placeholder": "Детальное описание проблемы...", "rows": 5}
+        )
+    )
+
+    captcha = ReCaptchaField()
+
+    class Meta:
+        fields = ["problem", "text_problem", "captcha", ]

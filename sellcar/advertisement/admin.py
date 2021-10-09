@@ -39,16 +39,6 @@ class CustomUserAdmin(UserAdmin):
     photo_get.short_description = "Фото пользователя"
 
 
-# @admin.register(CustomUser)
-# class CustomUserAdmin(admin.ModelAdmin):
-#     list_display = ("loginname", "e_mail", "phone", "photo_get")
-
-#     def photo_get(self, obj):
-#         return mark_safe(f'<img src={obj.photo.url} width="20" height="25">')
-
-#     photo_get.short_description = "Фото пользователя"
-
-
 @admin.register(CarAdvertisement)
 class CarAdvertisementAdmin(admin.ModelAdmin):
     list_display = (

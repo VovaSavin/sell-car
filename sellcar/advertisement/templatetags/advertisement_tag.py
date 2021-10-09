@@ -1,10 +1,9 @@
 from django import template
-from advertisement.forms import ImageCarsForm
+from advertisement.forms import SendMail
 
 register = template.Library()
 
 
-@register.inclusion_tag("advertisement/tag/image-form.html")
-def get_imageForm():
-    """Возвращает форму добавления фото автомобилей"""
-    return {"img_form": ImageCarsForm()}
+@register.inclusion_tag('advertisement/tag/send_form.html')
+def get_send_form():
+    return {'sendform': SendMail()}
